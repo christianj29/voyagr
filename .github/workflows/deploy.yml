@@ -18,6 +18,9 @@ jobs:
 
       - name: Upload to $web
         run: |
+          cat <<'EOF' > config.js
+          ${{ secrets.VOYAGR_CONFIG }}
+          EOF
           az storage blob upload-batch \
             --account-name "voyagrstorage" \
             --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \

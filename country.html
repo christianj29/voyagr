@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voyagr | Country</title>
+    <link rel="stylesheet" href="country.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <a class="back" href="index.html">← Back to map</a>
+          <h1 id="country-name">Country</h1>
+          <p id="country-blurb" class="blurb"></p>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="panel">
+          <h2>Popular activities</h2>
+          <div id="activity-list" class="activity-list"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Add your experience</h2>
+          <form id="activity-form" class="activity-form">
+            <input type="hidden" id="activity-id" />
+            <label>
+              Title
+              <input id="title" name="title" required maxlength="80" />
+            </label>
+            <label>
+              Description
+              <textarea id="description" name="description" rows="3" required></textarea>
+            </label>
+            <div class="upload">
+              <p>Photo (optional)</p>
+              <div
+                id="photo-drop"
+                class="photo-drop"
+                role="button"
+                tabindex="0"
+                aria-label="Upload a photo"
+              >
+                <input id="photo-input" type="file" accept="image/*" />
+                <span id="photo-prompt">Drag & drop or click to upload</span>
+              </div>
+              <div id="photo-preview" class="photo-preview" hidden>
+                <img id="photo-img" alt="Selected photo preview" />
+                <button type="button" id="photo-clear" class="ghost">
+                  Remove photo
+                </button>
+              </div>
+            </div>
+            <label>
+              Location
+              <input id="location" name="location" required maxlength="80" />
+            </label>
+            <label>
+              Date
+              <input id="date" name="date" type="date" required />
+            </label>
+            <label>
+              Rating
+              <select id="rating" name="rating">
+                <option value="5">5 - Unforgettable</option>
+                <option value="4">4 - Loved it</option>
+                <option value="3">3 - Solid</option>
+                <option value="2">2 - Meh</option>
+                <option value="1">1 - Skip</option>
+              </select>
+            </label>
+            <div class="form-actions">
+              <button type="submit" id="save-button">Save experience</button>
+              <button type="button" id="cancel-button" class="ghost">Cancel edit</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const paramName = params.get("name");
+        if (paramName) {
+          const nameEl = document.getElementById("country-name");
+          if (nameEl) {
+            nameEl.textContent = paramName;
+          }
+        }
+      })();
+    </script>
+    <script src="countries-data.js"></script>
+    <script src="config.js"></script>
+    <script type="module" src="country.js"></script>
+  </body>
+</html>

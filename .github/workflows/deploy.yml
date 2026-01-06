@@ -1,0 +1,25 @@
+name: Deploy to Azure Blob Static Website
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload to $web
+        run: |
+          az storage blob upload-batch \
+            --account-name "voyagrstorage" \
+            --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \
+            --destination '$web' \
+            --source .

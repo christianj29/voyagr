@@ -57,7 +57,15 @@ export const activityApi = {
         withQueryParam(activityUrls.listUrl, "country", countryCode),
         { headers: apiHeaders }
       );
-      return res.json();
+      const text = await res.text();
+      if (!text) {
+        return [];
+      }
+      try {
+        return JSON.parse(text);
+      } catch {
+        return [];
+      }
     }
     await sleep(120);
     return localList(countryCode);

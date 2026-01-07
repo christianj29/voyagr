@@ -144,7 +144,15 @@ export const activityApi = {
       headers: { "Content-Type": "application/json", ...apiHeaders },
       body: JSON.stringify(payload),
     });
-    const data = await res.json();
-    return { url: data.url, name: file.name };
+    const text = await res.text();
+    if (!text) {
+      return { url: "", name: file.name };
+    }
+    try {
+      const data = JSON.parse(text);
+      return { url: data.url || "", name: file.name };
+    } catch {
+      return { url: "", name: file.name };
+    }
   },
 };

@@ -142,7 +142,12 @@ formEl.addEventListener("submit", async (event) => {
     const result = await activityApi.uploadPhoto(photoFile);
     uploadedUrl = result.url;
   }
-  const payload = {
+const payload = {
+    id:
+      editingId ||
+      (typeof crypto !== "undefined" && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
     title: titleEl.value.trim(),
     description: descEl.value.trim(),
     location: locationEl.value.trim(),

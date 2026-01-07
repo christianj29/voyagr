@@ -94,6 +94,31 @@
     </script>
     <script src="countries-data.js"></script>
     <script src="config.js"></script>
+    <script>
+      (function () {
+        const config =
+          window.VOYAGR_APP_INSIGHTS_CONNECTION_STRING ||
+          window.VOYAGR_APP_INSIGHTS?.connectionString;
+        if (!config) {
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = "https://js.monitor.azure.com/scripts/b/ai.2.min.js";
+        script.onload = function () {
+          const appInsights = new window.Microsoft.ApplicationInsights.ApplicationInsights(
+            {
+              config: {
+                connectionString: config,
+              },
+            }
+          );
+          appInsights.loadAppInsights();
+          appInsights.trackPageView();
+          window.appInsights = appInsights.appInsights;
+        };
+        document.head.appendChild(script);
+      })();
+    </script>
     <script type="module" src="country.js"></script>
   </body>
 </html>

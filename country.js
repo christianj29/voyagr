@@ -102,7 +102,10 @@ const renderActivities = () => {
 };
 
 const refresh = async () => {
-  activities = await activityApi.list(country.code);
+  const all = await activityApi.list(country.code);
+  const codeMatch = (activity) =>
+    activity?.countrycode === code || activity?.countryCode === code;
+  activities = Array.isArray(all) ? all.filter(codeMatch) : [];
   renderActivities();
 };
 

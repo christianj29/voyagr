@@ -67,7 +67,7 @@ export const activityApi = {
       const res = await fetch(activityUrls.createUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...apiHeaders },
-        body: JSON.stringify({ ...payload, country: countryCode }),
+        body: JSON.stringify({ ...payload, countryCode }),
       });
       return res.json();
     }
@@ -82,7 +82,7 @@ export const activityApi = {
       const res = await fetch(withId(activityUrls.updateUrl, id), {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...apiHeaders },
-        body: JSON.stringify({ ...payload, country: countryCode }),
+        body: JSON.stringify({ ...payload, countryCode }),
       });
       return res.json();
     }

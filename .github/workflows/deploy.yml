@@ -25,4 +25,5 @@ jobs:
             --account-name "voyagrstorage" \
             --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \
             --destination '$web' \
-            --source .
+            --source . \
+            --overwrite true

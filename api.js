@@ -5,6 +5,7 @@ const STORAGE_PREFIX = "voyagr.activities.";
 const apiConfig = window.VOYAGR_API || {};
 const activityUrls = apiConfig.activities || {};
 const uploadUrl = apiConfig.uploadUrl;
+const uploadsBaseUrl = apiConfig.uploadsBaseUrl;
 const apiHeaders = apiConfig.headers || {};
 
 const withQueryParam = (url, key, value) => {
@@ -156,13 +157,22 @@ export const activityApi = {
     });
     const text = await res.text();
     if (!text) {
-      return { url: "", name: file.name };
+      return {
+        url: uploadsBaseUrl ? `${uploadsBaseUrl}/${file.name}` : "",
+        name: file.name,
+      };
     }
     try {
       const data = JSON.parse(text);
-      return { url: data.url || "", name: file.name };
+      return {
+        url: data.url || (uploadsBaseUrl ? `${uploadsBaseUrl}/${file.name}` : ""),
+        name: file.name,
+      };
     } catch {
-      return { url: "", name: file.name };
+      return {
+        url: uploadsBaseUrl ? `${uploadsBaseUrl}/${file.name}` : "",
+        name: file.name,
+      };
     }
   },
 };

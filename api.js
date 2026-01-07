@@ -62,7 +62,17 @@ export const activityApi = {
         return [];
       }
       try {
-        return JSON.parse(text);
+        const data = JSON.parse(text);
+        if (Array.isArray(data)) {
+          return data;
+        }
+        if (data && Array.isArray(data.Documents)) {
+          return data.Documents;
+        }
+        if (data && Array.isArray(data.value)) {
+          return data.value;
+        }
+        return [];
       } catch {
         return [];
       }

@@ -36,8 +36,23 @@ blurbEl.textContent =
 let activities = [];
 let editingId = null;
 
+const normalizeId = (value) => {
+  if (value === undefined || value === null || value === "") {
+    return null;
+  }
+  return value;
+};
+
 const getActivityId = (activity) =>
-  activity?.id ?? activity?.Id ?? activity?._id ?? null;
+  normalizeId(
+    activity?.id ??
+      activity?.Id ??
+      activity?._id ??
+      activity?.ID ??
+      activity?.activityId ??
+      activity?.ActivityId ??
+      null
+  );
 
 const setEditing = (activity) => {
   editingId = getActivityId(activity);
@@ -145,9 +160,12 @@ formEl.addEventListener("submit", async (event) => {
     const result = await activityApi.uploadPhoto(photoFile);
     uploadedUrl = result.url;
   }
-const payload = {
+  const formId = normalizeId(idEl.value?.trim());
+  const resolvedId = normalizeId(editingId ?? formId);
+  const isEditing = resolvedId !== null;
+  const payload = {
     id:
-      editingId ||
+      resolvedId ??
       (typeof crypto !== "undefined" && crypto.randomUUID
         ? crypto.randomUUID()
         : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
@@ -160,8 +178,8 @@ const payload = {
     photoName: photoName || "",
   };
 
-  if (editingId) {
-    await activityApi.update(country.code, editingId, payload);
+  if (isEditing) {
+    await activityApi.update(country.code, resolvedId, payload);
   } else {
     await activityApi.create(country.code, payload);
   }

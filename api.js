@@ -103,7 +103,15 @@ export const activityApi = {
         headers: { "Content-Type": "application/json", ...apiHeaders },
         body: JSON.stringify({ ...payload, countrycode: countryCode }),
       });
-      return res.json();
+      const text = await res.text();
+      if (!text) {
+        return { ...payload, countrycode: countryCode, id };
+      }
+      try {
+        return JSON.parse(text);
+      } catch {
+        return { ...payload, countrycode: countryCode, id };
+      }
     }
     const items = localList(countryCode);
     const updated = items.map((item) =>

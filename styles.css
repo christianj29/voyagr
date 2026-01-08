@@ -31,6 +31,27 @@ body {
   flex-direction: column;
 }
 
+.topbar {
+  position: absolute;
+  top: 24px;
+  left: 6vw;
+  right: 6vw;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  pointer-events: none;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  pointer-events: auto;
+}
+
 .hero {
   position: relative;
   min-height: 100vh;
@@ -93,6 +114,14 @@ body {
   background: rgba(13, 27, 30, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(6px);
+}
+
+.search-panel--floating {
+  position: absolute;
+  top: 24px;
+  right: 6vw;
+  z-index: 3;
+  width: min(320px, 90vw);
 }
 
 .search-panel label {
@@ -193,6 +222,7 @@ body {
   .hero {
     grid-template-columns: 1fr;
     min-height: auto;
+    padding-top: 120px;
   }
 
   .hero::after {
@@ -201,5 +231,14 @@ body {
 
   #map {
     min-height: 360px;
+  }
+
+  .topbar {
+    top: 18px;
+  }
+
+  .search-panel--floating {
+    position: static;
+    margin-top: 12px;
   }
 }

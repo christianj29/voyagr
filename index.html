@@ -8,6 +8,9 @@
   </head>
   <body>
     <main class="page">
+      <header class="topbar">
+        <div class="brand">Voyagr</div>
+      </header>
       <section class="hero">
         <div class="hero-overlay">
           <p class="eyebrow">Voyagr</p>
@@ -16,27 +19,27 @@
             Click a country to see popular activities, then add your own
             experience.
           </p>
-          <form class="search-panel" id="country-search-form" role="search">
-            <label for="country-search">Search countries</label>
-            <div class="search-input">
-              <input
-                id="country-search"
-                name="country-search"
-                type="search"
-                placeholder="Start typing a country name"
-                autocomplete="off"
-              />
-              <span class="search-status" id="search-status" aria-live="polite"></span>
-            </div>
-            <div
-              class="search-results"
-              id="search-results"
-              role="listbox"
-              aria-label="Country search results"
-              hidden
-            ></div>
-          </form>
         </div>
+        <form class="search-panel search-panel--floating" id="country-search-form" role="search">
+          <label for="country-search">Search countries</label>
+          <div class="search-input">
+            <input
+              id="country-search"
+              name="country-search"
+              type="search"
+              placeholder="Start typing a country name"
+              autocomplete="off"
+            />
+            <span class="search-status" id="search-status" aria-live="polite"></span>
+          </div>
+          <div
+            class="search-results"
+            id="search-results"
+            role="listbox"
+            aria-label="Country search results"
+            hidden
+          ></div>
+        </form>
         <div class="map-frame">
           <div id="map" class="map-shell" aria-label="World map with country pins"></div>
         </div>
